@@ -1,0 +1,4 @@
+SELECT * 
+FROM `Table` T
+INNER JOIN `Column` C ON C.IdTable=T.id
+INNER JOIN `Row` R ON R.IdRow=C.Id
