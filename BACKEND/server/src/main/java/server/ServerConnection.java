@@ -10,6 +10,7 @@ import java.sql.Statement;
 public class ServerConnection {
     Connection connection;
 
+    ///Utworzenie połączenia z serverem
     ServerConnection() throws SQLException {
         MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setUser("micronaut");
@@ -19,6 +20,7 @@ public class ServerConnection {
         connection = dataSource.getConnection();
     }
 
+    ///Wysłanie zapytania do serwera
     ResultSet query (String query ) throws SQLException {
         Statement stmt = connection.createStatement();
         return stmt.executeQuery(query);
