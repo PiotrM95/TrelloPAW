@@ -10,6 +10,7 @@ import java.util.List;
 public class dbQuerys {
     static ServerConnection connection;
 
+    ///Utworzenia połączenia z serwerem
     static void Initialize(){
         try {
             connection = new ServerConnection();
@@ -18,6 +19,8 @@ public class dbQuerys {
         }
     }
 
+    ///Pobranie danych z servera i wrzucenie ich do listy obiektow Table
+    ///id - id(numer) tabeli
     public static List<Table> getTableData(int id) throws SQLException {
         Initialize();
         StringBuilder string = new StringBuilder();
