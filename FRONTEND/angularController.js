@@ -24,6 +24,12 @@ angular
 		$scope.lists.push({name: 'list ' + x, tickets: []})
 		x++;
 	  }
+	  
+	  $scope.deleteList = function () {
+		$scope.lists.splice(x,1);
+		x--;
+	  }
+	  
 
 	  $scope.addTicket = function (list) {
 		list.tickets.push({})
