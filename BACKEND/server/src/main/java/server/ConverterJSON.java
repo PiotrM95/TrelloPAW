@@ -1,5 +1,6 @@
 package server;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import server.model.Board;
 import server.model.Table;
 
 import java.io.ByteArrayOutputStream;
@@ -9,7 +10,7 @@ import java.util.List;
 public class ConverterJSON {
 
     ///Funkcja zamienia List<Table> na String JSON
-    public static String tableListToJSON(List<Table> list){
+    public static String tableListToJSON(List<Board> list){
 
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
         final ObjectMapper mapper = new ObjectMapper();
