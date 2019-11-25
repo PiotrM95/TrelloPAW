@@ -1,0 +1,19 @@
+DROP PROCEDURE IF EXISTS GetBoard;
+DELIMITER $$
+CREATE PROCEDURE `GetBoard`(
+    IN boardId INT
+)
+BEGIN
+	SELECT 
+    	B.Id AS board_id
+        ,B.Name AS board_name
+        ,L.`Order` AS list_id
+        ,L.Name AS list_name
+        ,R.`Order`AS row_id
+        ,R.Name AS row_name
+    FROM `Board` B
+    	LEFT JOIN `List` L ON L.IdBoard=B.Id
+    	LEFT JOIN `Row` R ON R.IdList=L.Id
+    WHERE B.Id=boardId;
+END$$
+DELIMITER ;

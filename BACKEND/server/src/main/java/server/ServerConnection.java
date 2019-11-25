@@ -1,5 +1,6 @@
 package server;
 
+import com.mysql.cj.jdbc.CallableStatement;
 import com.mysql.cj.jdbc.MysqlDataSource;
 
 import java.sql.Connection;
@@ -21,8 +22,22 @@ public class ServerConnection {
     }
 
     ///Wysłanie zapytania do serwera
-    ResultSet query (String query ) throws SQLException {
+    ResultSet query (String query ) throws SQLException
+    {
         Statement stmt = connection.createStatement();
         return stmt.executeQuery(query);
+    }
+
+    CallableStatement procedureCall(String query) throws SQLException
+    {
+
+        return (CallableStatement) connection.prepareCall(query);
+        //stmt.setInt(1, candidateId);
+    }
+
+    ResultSet procedureExecute(CallableStatement statement) throws SQLException
+    {
+
+        return statement.executeQuery();
     }
 }
