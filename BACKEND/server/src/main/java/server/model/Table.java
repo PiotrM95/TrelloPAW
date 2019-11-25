@@ -1,40 +1,40 @@
 package server.model;
 
 public class Table {
-    String columnName;
-    int order;
-    String rowName;
-    String Description;
+    String list;
+    int orderList;
+    String row;
+    String description;
 
-    public String getColumnName() {
-        return columnName;
+    public String getlist() {
+        return list;
     }
 
-    public void setColumnName(String columnName) {
-        this.columnName = columnName;
+    public void setlist(String list) {
+        this.list = list;
     }
 
-    public int getOrder() {
-        return order;
+    public int getOrderList() {
+        return orderList;
     }
 
-    public void setOrder(int order) {
-        this.order = order;
+    public void setOrderList(int orderList) {
+        this.orderList = orderList;
     }
 
-    public String getRowName() {
-        return rowName;
+    public String getRow() {
+        return row;
     }
 
-    public void setRowName(String rowName) {
-        this.rowName = rowName;
+    public void setRow(String row) {
+        this.row = row;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        description = description;
     }
 }
