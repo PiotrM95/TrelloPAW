@@ -1,0 +1,9 @@
+INSERT INTO `Board` (Name) VALUES ('Pierdzioszki');
+INSERT INTO `Board` (Name) VALUES ('Well');
+INSERT INTO `List` (IdBoard,`Order`,Name) VALUES (1,1,'Rodzaje');
+INSERT INTO `List` (IdBoard,`Order`,Name) VALUES (1,2,'Konzystencja');
+INSERT INTO `Row` (IdList,`ORDER` ,Name) VALUES (1,1,'Seria');
+INSERT INTO `Row` (IdList,`ORDER` ,Name) VALUES (1,2,'Głośny');
+INSERT INTO `Row` (IdList,`ORDER` ,Name) VALUES (1,3,'Cichacz');
+INSERT INTO `Row` (IdList,`ORDER` ,Name) VALUES (2,1,'Morky');
+INSERT INTO `Row` (IdList,`ORDER` ,Name) VALUES (2,2,'Suchy');

@@ -1,3 +1,0 @@
-INSERT INTO `Table` (Name) VALUES ('Tabela1');
-INSERT INTO `Column` (IdTable,`Order`,Name) VALUES (1,1,'Column1');
-INSERT INTO `Row` (IdColumn ,Name) VALUES (1,'Row1');
