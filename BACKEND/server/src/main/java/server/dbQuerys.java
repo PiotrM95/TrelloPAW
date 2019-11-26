@@ -5,8 +5,7 @@ import server.model.Board;
 import server.model.Row;
 import server.model.Table;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,5 +85,28 @@ public class dbQuerys {
 
         rs.close();
         return list;
+    }
+
+    public static boolean checkExistUser(String login) throws SQLException {
+        Initialize();
+        Connection conn = DriverManager.getConnection("dodac url tu","username","password");
+        Statement stmt = conn.createStatement();
+        String sqlLogin = "Select Login from User";
+        ResultSet rs = stmt.executeQuery(sqlLogin);
+
+        if (rs.next() == false) {
+            return false;
+        }
+
+        rs.close();
+        return true;
+    }
+
+    public static void setNewUser(String login, String password) throws SQLException {
+        Initialize();
+        Connection conn = DriverManager.getConnection("dodac url tu","username","password");
+        Statement stmt = conn.createStatement();
+        String newUser = "Insert into User values(" + login + ", " + password + ", false)";
+        stmt.executeUpdate(newUser);
     }
 }
