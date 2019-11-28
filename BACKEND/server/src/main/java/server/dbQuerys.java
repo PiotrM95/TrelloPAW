@@ -109,4 +109,26 @@ public class dbQuerys {
         String newUser = "Insert into User values(" + login + ", " + password + ", false)";
         stmt.executeUpdate(newUser);
     }
+
+    public static String getRightPassword(String userName) throws SQLException {
+        Initialize();
+        Connection conn = DriverManager.getConnection("dodac url tu","username","password");
+        Statement stmt = conn.createStatement();
+        String password = "Select Password from User where Login like \"" + userName + "\"";
+        ResultSet rightPassword = stmt.executeQuery(password);
+        return rightPassword.getString("Password");
+    }
+
+    public static boolean isLogged(String login) throws SQLException {
+        Initialize();
+        Connection conn = DriverManager.getConnection("dodac url tu","username","password");
+        Statement stmt = conn.createStatement();
+        String checkLogUser = "Select IsLogged from User where Login like \"" + login + "\"";
+        ResultSet rightPassword = stmt.executeQuery(checkLogUser);
+        Boolean result = rightPassword.getBoolean("IsLogged ");
+        if(result == false) {
+            return false;
+        }
+        return true;
+    }
 }
