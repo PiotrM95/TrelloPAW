@@ -1,0 +1,11 @@
+DROP PROCEDURE IF EXISTS GetBoards;
+DELIMITER $$
+CREATE PROCEDURE `GetBoards`(
+)
+BEGIN
+	SELECT 
+        B.Id as board_id
+        ,B.Name as board_name
+    FROM `Board` B;
+END$$
+DELIMITER ;

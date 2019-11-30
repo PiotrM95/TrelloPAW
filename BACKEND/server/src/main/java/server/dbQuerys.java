@@ -3,7 +3,6 @@ package server;
 import com.mysql.cj.jdbc.CallableStatement;
 import server.model.Board;
 import server.model.Row;
-import server.model.Table;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -86,5 +85,49 @@ public class dbQuerys {
 
         rs.close();
         return list;
+    }
+
+    public static List<Board> getBoards() throws SQLException {
+        Initialize();
+//        CallableStatement statement = connection.procedureCall("{ call getBoard(?) }");
+//        statement.setInt("boardId", id);
+//        ResultSet rs = connection.procedureExecute(statement);
+
+        CallableStatement statement = connection.procedureCall("{ call getBoards }");
+        ResultSet rs = connection.procedureExecute(statement);
+
+
+        List<Board> list = new ArrayList<>();
+        while(rs.next()){
+            Board board=new Board();
+            board.setBoard_id(rs.getInt("board_id"));
+            board.setBoard_name(rs.getString("board_name"));
+            board.setLists(new ArrayList<>());
+            list.add(board);
+        }
+
+        rs.close();
+        return list;
+    }
+
+    public static void updateBoard(int id, String name) throws SQLException {
+        Initialize();
+
+        CallableStatement statement = connection.procedureCall("{ call UpdateBoard(?,?) }");
+        statement.setInt("boardId", id);
+        statement.setString("boardName", name);
+        ResultSet rs = connection.procedureExecute(statement);
+
+        rs.close();
+    }
+
+    public static void insertBoard(String name) throws SQLException {
+        Initialize();
+
+        CallableStatement statement = connection.procedureCall("{ call InsertBoard(?) }");
+        statement.setString("boardName", name);
+        ResultSet rs = connection.procedureExecute(statement);
+
+        rs.close();
     }
 }

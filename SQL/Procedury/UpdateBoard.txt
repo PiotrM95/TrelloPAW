@@ -1,0 +1,15 @@
+DROP PROCEDURE IF EXISTS UpdateBoard;
+DELIMITER $$
+CREATE PROCEDURE `UpdateBoard`(
+    IN boardId INT
+    ,IN boardName VARCHAR(100)
+)
+BEGIN
+	UPDATE 
+    	`Board`
+    SET
+    	Name = boardName
+    WHERE
+    	Id = boardId;
+END$$
+DELIMITER ;
