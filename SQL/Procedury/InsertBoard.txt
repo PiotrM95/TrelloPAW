@@ -1,0 +1,12 @@
+DROP PROCEDURE IF EXISTS InsertBoard;
+DELIMITER $$
+CREATE PROCEDURE `InsertBoard`(
+    IN boardName VARCHAR(300)
+)
+BEGIN
+	INSERT INTO `Board` 
+    	(Name) 
+   	VALUES 
+    	(boardName);
+END$$
+DELIMITER ;

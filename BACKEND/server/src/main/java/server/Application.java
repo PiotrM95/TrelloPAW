@@ -1,13 +1,12 @@
 package server;
+        import com.fasterxml.jackson.core.JsonProcessingException;
         import io.micronaut.runtime.Micronaut;
-        import server.model.Table;
 
-        import java.sql.ResultSet;
         import java.sql.SQLException;
 
 public class Application {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, JsonProcessingException {
         Micronaut.run(Application.class);
         ///Ponizej do JSON'a
         /*System.out.println(ConverterJSON.tableListToJSON(dbQuerys.getTableData(1)));
