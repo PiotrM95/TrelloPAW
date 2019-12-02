@@ -130,4 +130,17 @@ public class dbQuerys {
 
         rs.close();
     }
+
+    public static void insertRow(int boardId,int listOrder,int rowOrder, String rowName) throws SQLException {
+        Initialize();
+
+        CallableStatement statement = connection.procedureCall("{ call InsertRow(?,?,?,?) }");
+        statement.setInt("boardId", boardId);
+        statement.setInt("listOrder", listOrder);
+        statement.setInt("rowOrder", rowOrder);
+        statement.setString("rowName", rowName);
+        ResultSet rs = connection.procedureExecute(statement);
+
+        rs.close();
+    }
 }

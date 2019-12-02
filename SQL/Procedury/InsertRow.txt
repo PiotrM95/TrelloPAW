@@ -1,0 +1,33 @@
+DROP PROCEDURE IF EXISTS InsertRow;
+DELIMITER $$
+CREATE PROCEDURE `InsertRow`(
+    IN boardId INT,
+	IN listOrder INT,
+	IN rowOrder INT,
+	IN rowName VARCHAR(300)
+)
+BEGIN
+	INSERT INTO `Row` 
+    	(
+        	IdList
+            ,`Order`
+            ,Name
+        ) 
+   	VALUES 
+    	(
+            (
+                SELECT 
+                    L.Id 
+                 FROM 
+                    `List` L 
+                    INNER JOIN `Board` B ON B.Id=L.IdBoard 
+                 WHERE
+             		L.`Order` = listOrder
+                	AND
+                	B.Id = boardId
+            )
+            ,rowOrder
+            ,rowName
+        );
+END$$
+DELIMITER ;
