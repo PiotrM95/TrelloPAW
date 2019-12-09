@@ -2,6 +2,8 @@ package server;
 
 import com.mysql.cj.jdbc.CallableStatement;
 import server.model.Board;
+import server.model.Comment;
+import server.model.Details;
 import server.model.Row;
 
 import java.sql.ResultSet;
@@ -129,5 +131,53 @@ public class dbQuerys {
         ResultSet rs = connection.procedureExecute(statement);
 
         rs.close();
+    }
+
+    public static void insertRow(int boardId,int listOrder,int rowOrder, String rowName) throws SQLException {
+        Initialize();
+
+        CallableStatement statement = connection.procedureCall("{ call InsertRow(?,?,?,?) }");
+        statement.setInt("boardId", boardId);
+        statement.setInt("listOrder", listOrder);
+        statement.setInt("rowOrder", rowOrder);
+        statement.setString("rowName", rowName);
+        ResultSet rs = connection.procedureExecute(statement);
+
+        rs.close();
+    }
+
+    public static Details getDetails(int boardId, int listOrder, int rowOrder) throws SQLException {
+        Initialize();
+//        CallableStatement statement = connection.procedureCall("{ call getBoard(?) }");
+//        statement.setInt("boardId", id);
+//        ResultSet rs = connection.procedureExecute(statement);
+
+        CallableStatement statement = connection.procedureCall("{ call GetRowDetails(?,?,?) }");
+        statement.setInt("boardId", boardId);
+        statement.setInt("listOrder", listOrder);
+        statement.setInt("rowOrder", rowOrder);
+        ResultSet rs = connection.procedureExecute(statement);
+
+
+        Details details= new Details();
+        while(rs.next()){
+            if(details.getRow().getRow_name()==null || details.getRow().getRow_description()==null)
+            {
+                details.getRow().setRow_name(rs.getString("row_name"));
+                String description = rs.getString("row_description");
+
+                if(rs.wasNull()){
+                    description=null;
+                }
+                details.getRow().setRow_description(description);
+            }
+            Comment comment = new Comment();
+            comment.setComment_id(rs.getInt("comment_id"));
+            comment.setComment_name(rs.getString("comment_name"));
+            details.getComments().add(comment);
+        }
+
+        rs.close();
+        return details;
     }
 }

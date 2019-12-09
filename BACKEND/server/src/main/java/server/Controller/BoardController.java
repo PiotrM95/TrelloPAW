@@ -55,9 +55,31 @@ public class BoardController {
     public HttpResponse<Board> insertBoard(@Body Board board) {
         try {
             dbQuerys.insertBoard(board.getBoard_name());
+            return HttpResponse.ok();
         } catch (SQLException e) {
-            e.printStackTrace();
+            return HttpResponse.serverError();
         }
-        return HttpResponse.ok();
+
+    }
+
+    //curl -d {\"lists\":[{\"list_id\":\"1\",\"rows\":[{\"row_id\":\"4\",\"row_name\":\"nazwaRow\"}]}]} -H "Content-Type: application/json" -X POST "http://localhost:8080/board/1/insertRow"
+    @Post("/{number}/insertRow")
+    public HttpResponse<Board> insertRow(@PathVariable Integer number,@Body Board board) {
+        try {
+            dbQuerys.insertRow(number,board.getLists().get(0).getList_id(),board.getLists().get(0).getRows().get(0).getRow_id(),board.getLists().get(0).getRows().get(0).getRow_name());
+            return HttpResponse.ok();
+        } catch (SQLException e) {
+            return HttpResponse.serverError();
+        }
+    }
+
+    @Get("/{boardId}/{listOrder}+{rowOrder}")
+    public String details(@PathVariable Integer boardId, @PathVariable Integer listOrder, @PathVariable Integer rowOrder) {
+        try {
+            return ConverterJSON.detailsToJSON(dbQuerys.getDetails(boardId,listOrder,rowOrder));
+        } catch (SQLException e) {
+            return "404";
+        }
+
     }
 }

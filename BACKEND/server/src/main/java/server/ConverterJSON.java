@@ -1,6 +1,7 @@
 package server;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import server.model.Board;
+import server.model.Details;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -43,5 +44,20 @@ public class ConverterJSON {
         return(new String(data));
     }
 
+    public static String detailsToJSON(Details details){
+
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final ObjectMapper mapper = new ObjectMapper();
+
+
+        try {
+            mapper.writeValue(out, details);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        final byte[] data = out.toByteArray();
+        return(new String(data));
+    }
 
 }
