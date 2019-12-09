@@ -72,4 +72,14 @@ public class BoardController {
             return HttpResponse.serverError();
         }
     }
+
+    @Get("/{boardId}/{listOrder}+{rowOrder}")
+    public String details(@PathVariable Integer boardId, @PathVariable Integer listOrder, @PathVariable Integer rowOrder) {
+        try {
+            return ConverterJSON.detailsToJSON(dbQuerys.getDetails(boardId,listOrder,rowOrder));
+        } catch (SQLException e) {
+            return "404";
+        }
+
+    }
 }

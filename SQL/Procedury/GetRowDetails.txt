@@ -1,0 +1,26 @@
+DROP PROCEDURE IF EXISTS GetRowDetails;
+DELIMITER $$
+CREATE PROCEDURE `GetRowDetails`(
+    IN boardId INT
+    ,IN listOrder INT
+    ,IN rowOrder INT
+)
+BEGIN
+	SELECT 
+        R.Name AS row_name
+        ,R.Description AS row_description
+        ,C.`Order` AS comment_id
+        ,C.`Comment` AS comment_name
+    FROM 
+    	`Board` B
+    	INNER JOIN `List` L ON L.IdBoard=B.Id
+    	INNER JOIN `Row` R ON R.IdList=L.Id
+        LEFT JOIN `Comment` C ON C.IdRow=R.Id
+    WHERE 
+    	B.Id=boardId
+        AND
+        L.`Order`=listOrder
+        AND
+        R.`Order`=rowOrder;
+END$$
+DELIMITER ;

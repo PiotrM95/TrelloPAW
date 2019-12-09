@@ -7,3 +7,4 @@ INSERT INTO `Row` (IdList,`ORDER` ,Name) VALUES (1,2,'Głośny');
 INSERT INTO `Row` (IdList,`ORDER` ,Name) VALUES (1,3,'Cichacz');
 INSERT INTO `Row` (IdList,`ORDER` ,Name) VALUES (2,1,'Morky');
 INSERT INTO `Row` (IdList,`ORDER` ,Name) VALUES (2,2,'Suchy');
+INSERT INTO `Comment` (IdRow,`ORDER` ,`Comment`) VALUES (1,1,'Jakis tam komentarz');
