@@ -23,6 +23,10 @@ public class Attachment {
         }
     }
 
+    public void deleteAttachment(String attachment) throws SQLException {
+        dbQuerys.deleteAttachment(attachment);
+    }
+
     public File getFile() {
         return file;
     }

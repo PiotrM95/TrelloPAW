@@ -212,11 +212,19 @@ public class dbQuerys {
         return true;
     }
 
-    public static void setNewUser(String login, String password) throws SQLException {
+    public static void setNewUser(String login, String pass) throws SQLException {
         Initialize();
         Connection conn = DriverManager.getConnection(url, username, password);
         Statement stmt = conn.createStatement();
-        String newUser = "Insert into User values(" + login + ", " + password + ", false)";
+        String newUser = "Insert into User values(" + login + ", " + pass + ", false)";
         stmt.executeUpdate(newUser);
+    }
+
+    public static void deleteAttachment(String attachment) throws SQLException {
+        Initialize();
+        Connection conn = DriverManager.getConnection(url, username, password);
+        Statement stmt = conn.createStatement();
+        String sql = "delete from attachment where file_data=" + attachment;
+        stmt.executeUpdate(sql);
     }
 }
