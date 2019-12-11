@@ -13,9 +13,9 @@ import java.util.List;
 
 public class dbQuerys {
     static ServerConnection connection;
-    private static String url;
-    private static String password;
-    private static String username;
+    static String url;
+    static String password;
+    static String username;
 
     ///Utworzenia połączenia z serwerem
     static void Initialize(){
@@ -190,11 +190,33 @@ public class dbQuerys {
         Initialize();
         Connection conn = DriverManager.getConnection(url, username, password);
         InputStream inputStream = new FileInputStream(file);
-
         String sql = "INSERT INTO attachment values (?)";
         PreparedStatement statement = conn.prepareStatement(sql);
         statement.setBlob(1, inputStream);
         statement.executeUpdate();
 
+    }
+
+    public static boolean checkExistUser(String login) throws SQLException {
+        Initialize();
+        Connection conn = DriverManager.getConnection(url, username, password);
+        Statement stmt = conn.createStatement();
+        String sqlLogin = "Select Login from User";
+        ResultSet rs = stmt.executeQuery(sqlLogin);
+
+        if (rs.next() == false) {
+            return false;
+        }
+
+        rs.close();
+        return true;
+    }
+
+    public static void setNewUser(String login, String password) throws SQLException {
+        Initialize();
+        Connection conn = DriverManager.getConnection(url, username, password);
+        Statement stmt = conn.createStatement();
+        String newUser = "Insert into User values(" + login + ", " + password + ", false)";
+        stmt.executeUpdate(newUser);
     }
 }
