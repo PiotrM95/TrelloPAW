@@ -1,18 +1,21 @@
 package server;
 
 import com.mysql.cj.jdbc.CallableStatement;
-import server.model.Board;
-import server.model.Comment;
-import server.model.Details;
-import server.model.Row;
+import server.model.*;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class dbQuerys {
     static ServerConnection connection;
+    private static String url;
+    private static String password;
+    private static String username;
 
     ///Utworzenia połączenia z serwerem
     static void Initialize(){
@@ -179,5 +182,19 @@ public class dbQuerys {
 
         rs.close();
         return details;
+    }
+
+    public static void insertFile() throws SQLException, FileNotFoundException {
+        Attachment attachment = new Attachment();
+        File file = attachment.getFile();
+        Initialize();
+        Connection conn = DriverManager.getConnection(url, username, password);
+        InputStream inputStream = new FileInputStream(file);
+
+        String sql = "INSERT INTO attachment values (?)";
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setBlob(1, inputStream);
+        statement.executeUpdate();
+
     }
 }

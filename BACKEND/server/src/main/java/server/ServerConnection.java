@@ -3,10 +3,7 @@ package server;
 import com.mysql.cj.jdbc.CallableStatement;
 import com.mysql.cj.jdbc.MysqlDataSource;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class ServerConnection {
     Connection connection;

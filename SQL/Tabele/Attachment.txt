@@ -1,0 +1,4 @@
+create table ATTACHMENT
+(
+  FILE_DATA   BLOB not null
+) ;
