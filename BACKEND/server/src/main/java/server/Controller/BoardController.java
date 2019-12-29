@@ -1,5 +1,6 @@
 package server.Controller;
 
+import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
@@ -15,23 +16,23 @@ import java.sql.SQLException;
 public class BoardController {
 
     @Get()
-    public String boardList() {
+    public HttpResponse<String> boardList() {
         try {
-            return ConverterJSON.boardListToJSONWithoutEmpty(dbQuerys.getBoards());
+            return HttpResponse.ok(ConverterJSON.boardListToJSONWithoutEmpty(dbQuerys.getBoards())).header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "404";
+        return HttpResponse.serverError();
     }
 
     @Get("/{number}")
-    public String board(@PathVariable Integer number) {
+    public HttpResponse<String> board(@PathVariable Integer number) {
         try {
-            return ConverterJSON.boardListToJSON(dbQuerys.getTableData(number));
+            return HttpResponse.ok(ConverterJSON.boardListToJSON(dbQuerys.getTableData(number))).header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "404";
+        return HttpResponse.serverError();
     }
 
     //Aktualizacja nazwy tabeli
@@ -74,11 +75,11 @@ public class BoardController {
     }
 
     @Get("/{boardId}/{listOrder}+{rowOrder}")
-    public String details(@PathVariable Integer boardId, @PathVariable Integer listOrder, @PathVariable Integer rowOrder) {
+    public HttpResponse<String> details(@PathVariable Integer boardId, @PathVariable Integer listOrder, @PathVariable Integer rowOrder) {
         try {
-            return ConverterJSON.detailsToJSON(dbQuerys.getDetails(boardId,listOrder,rowOrder));
+            return HttpResponse.ok(ConverterJSON.detailsToJSON(dbQuerys.getDetails(boardId,listOrder,rowOrder))).header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
         } catch (SQLException e) {
-            return "404";
+            return HttpResponse.serverError();
         }
 
     }
