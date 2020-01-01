@@ -11,10 +11,16 @@ public class ServerConnection {
     ///Utworzenie połączenia z serverem
     ServerConnection() throws SQLException {
         MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setUser("micronaut");
+        /*dataSource.setUser("micronaut");
         dataSource.setPassword("micronaut");
         dataSource.setDatabaseName("micronaut");
         dataSource.setServerName("www.db4free.net");
+        connection = dataSource.getConnection();
+        */
+        dataSource.setUser("root");
+        dataSource.setPassword("");
+        dataSource.setDatabaseName("micronaut");
+        dataSource.setServerName("127.0.0.1");
         connection = dataSource.getConnection();
     }
 

@@ -53,10 +53,11 @@ public class BoardController {
     //Dodanie nowej tabeli
     //curl -d {\"board_name\":\"value\"} -H "Content-Type: application/json" -X POST "http://localhost:8080/board/insert"
     @Post("/insert")
-    public HttpResponse<Board> insertBoard(@Body Board board) {
+    public HttpResponse insertBoard(@Body Board board) {
         try {
             dbQuerys.insertBoard(board.getBoard_name());
-            return HttpResponse.ok();
+            return HttpResponse.ok().header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*").header(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "POST, GET")
+                    .header(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Accept");
         } catch (SQLException e) {
             return HttpResponse.serverError();
         }
