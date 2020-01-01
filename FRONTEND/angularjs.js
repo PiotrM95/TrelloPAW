@@ -1,1 +1,0 @@
-angular.module('angularjs', ['ui.bootstrap']);
