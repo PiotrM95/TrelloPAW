@@ -1,0 +1,28 @@
+<!-- jeśli jest jakaś lista to ją wyświetla -->
+<div *ngIf="listExists == true">
+    <div class="row">
+        <h5>{{ list.list_name }} (list id: {{ list.list_id }})</h5>
+    </div>
+    <div class="row" *ngFor="let row of rows" id="card" (mouseenter)="showDeleteRowButton(row.row_id, true)"
+        (mouseleave)="showDeleteRowButton(row.row_id, false)">
+        {{ row.row_name }}
+        <button type="Close" class="btn btn-primary my-1" *ngIf="(deleteRowButton && row.row_id === selectedRow )"
+            (click)="deleteRow(row.row_id)">X</button>
+    </div>
+</div>
+
+<!-- Dodawanie nowego wiersza do listy -->
+<div *ngIf="(showRowInput === false && listExists === true)">
+    <button type="button" class="btn btn-primary" (click)="onAddCardClick()"> Add card </button>
+</div>
+<!-- formularz dodawania wiersza -->
+<div class="container" *ngIf="showRowInput === true">
+    <form class="form-inline">
+        <div class="my-2 mr-2">
+            <input #rowInput type="text" class="form-control" placeholder="Wprowadź tytuł dla tej karty">
+        </div>
+
+        <button type="submit" class="btn btn-primary my-1" (click)="addNewRow(rowInput.value)">Submit</button>
+        <button type="submit" class="btn btn-primary my-1" (click)="onHideClick()">Close</button>
+    </form>
+</div>

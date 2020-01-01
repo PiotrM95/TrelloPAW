@@ -1,0 +1,13 @@
+<!-- wyświetlanie nazwy i id boarda oraz zawartosci list(list component) -->
+<h1>{{ b.board_name }} (board id: {{ b.board_id }})</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2" style="background-color:lightblue;" *ngFor="let list of wholeBoard.lists">
+            <app-list [list]=list></app-list>
+        </div>
+    </div>
+</div>
+<form class="form-inline">
+    <input #newListName type="text" class="form-control" placeholder="New list name">
+    <button type="submit" class="btn btn-primary my-1" (click)="addList(newListName.value); newListName.value = null">Add new list</button>
+</form>
