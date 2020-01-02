@@ -42,7 +42,7 @@ export class ListComponent implements OnInit {
   }
 
   addNewRow(text: string) {
-    this.boardsService.addRow(this.board_id.toString(), this.list.list_id.toString(), (this.rows.length+1).toString(), text).subscribe(data => {
+    this.boardsService.addRow(this.board_id.toString(), this.list.list_id.toString(), (this.rows.length + 1).toString(), text).subscribe(data => {
       console.log(data);
     });
     if (text === '') {

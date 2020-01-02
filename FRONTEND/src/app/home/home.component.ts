@@ -40,15 +40,15 @@ export class HomeComponent implements OnInit {
     return maxId;
   }
 
-  getAmountOfLists(board_id:number){
-    let amount = 0;
-    this.boardsService.getBoardById(board_id).subscribe(data => {
-      console.log(data[0]);
-      console.log('chuj');
-      this.boardsService.wholeBoard = data[0];
-      amount = this.boardsService.wholeBoard.lists.length;
-    }, error1 => console.log(error1));
-  }
+  // getAmountOfLists(board_id:number){
+  //   let amount = 0;
+  //   this.boardsService.getBoardById(board_id).subscribe(data => {
+  //     console.log(data[0]);
+  //     console.log('chuj');
+  //     this.boardsService.wholeBoard = data[0];
+  //     amount = this.boardsService.wholeBoard.lists.length;
+  //   }, error1 => console.log(error1));
+  // }
 
   addNewBoard(boardName: string) {
     this.loadedFeature = 'show-boards';
