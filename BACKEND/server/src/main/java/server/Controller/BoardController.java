@@ -18,7 +18,7 @@ public class BoardController {
     @Get()
     public HttpResponse<String> boardList() {
         try {
-            return HttpResponse.ok(ConverterJSON.boardListToJSONWithoutEmpty(dbQuerys.getBoards())).header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+            return HttpResponse.ok(ConverterJSON.boardListToJSONWithoutEmpty(dbQuerys.getBoards()));//.header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -28,7 +28,7 @@ public class BoardController {
     @Get("/{number}")
     public HttpResponse<String> board(@PathVariable Integer number) {
         try {
-            return HttpResponse.ok(ConverterJSON.boardListToJSON(dbQuerys.getTableData(number))).header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+            return HttpResponse.ok(ConverterJSON.boardListToJSON(dbQuerys.getTableData(number)));//.header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -56,8 +56,9 @@ public class BoardController {
     public HttpResponse insertBoard(@Body Board board) {
         try {
             dbQuerys.insertBoard(board.getBoard_name());
-            return HttpResponse.ok().header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*").header(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "POST, GET")
-                    .header(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Accept");
+            //return HttpResponse.ok().header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*").header(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "POST, GET")
+              //      .header(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Accept");
+            return HttpResponse.ok();
         } catch (SQLException e) {
             return HttpResponse.serverError();
         }
@@ -66,9 +67,11 @@ public class BoardController {
 
     //curl -d {\"lists\":[{\"list_id\":\"1\",\"rows\":[{\"row_id\":\"4\",\"row_name\":\"nazwaRow\"}]}]} -H "Content-Type: application/json" -X POST "http://localhost:8080/board/1/insertRow"
     @Post("/{number}/insertRow")
-    public HttpResponse<Board> insertRow(@PathVariable Integer number,@Body Board board) {
+    public HttpResponse insertRow(@PathVariable Integer number,@Body Board board) {
         try {
             dbQuerys.insertRow(number,board.getLists().get(0).getList_id(),board.getLists().get(0).getRows().get(0).getRow_id(),board.getLists().get(0).getRows().get(0).getRow_name());
+            //return HttpResponse.ok().header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*").header(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "POST, GET")
+              //      .header(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Accept");
             return HttpResponse.ok();
         } catch (SQLException e) {
             return HttpResponse.serverError();
@@ -78,7 +81,7 @@ public class BoardController {
     @Get("/{boardId}/{listOrder}+{rowOrder}")
     public HttpResponse<String> details(@PathVariable Integer boardId, @PathVariable Integer listOrder, @PathVariable Integer rowOrder) {
         try {
-            return HttpResponse.ok(ConverterJSON.detailsToJSON(dbQuerys.getDetails(boardId,listOrder,rowOrder))).header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+            return HttpResponse.ok(ConverterJSON.detailsToJSON(dbQuerys.getDetails(boardId,listOrder,rowOrder)));//.header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
         } catch (SQLException e) {
             return HttpResponse.serverError();
         }
