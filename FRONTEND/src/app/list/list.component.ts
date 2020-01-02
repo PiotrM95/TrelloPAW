@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { List } from '../models/list.model';
 import { Row } from '../models/row.model';
+import { BoardsService } from '../services/boards.service';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { Row } from '../models/row.model';
 export class ListComponent implements OnInit {
 
   @Input() list: List;
+  @Input() board_id: number;
   listExists: boolean;
   rows: Row[] = [];
   showRowInput: boolean;
@@ -18,7 +20,7 @@ export class ListComponent implements OnInit {
   deleteRowButton: boolean;
   selectedRow = -1;
 
-  constructor() { }
+  constructor(private boardsService: BoardsService) { }
 
   ngOnInit() {
     this.rows = this.list.rows;
@@ -40,6 +42,9 @@ export class ListComponent implements OnInit {
   }
 
   addNewRow(text: string) {
+    this.boardsService.addRow(this.board_id.toString(), this.list.list_id.toString(), (this.rows.length+1).toString(), text).subscribe(data => {
+      console.log(data);
+    });
     if (text === '') {
       this.showRowInput = true;
     } else {

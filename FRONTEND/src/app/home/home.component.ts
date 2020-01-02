@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
     this.loadedFeature = 'show-boards';
     this.boardsService.addBoard(boardName).subscribe(data => {
       console.log(data);
-    })
+    });
   }
 
   getSelectedBoard(board_id: number) {
