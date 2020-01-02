@@ -11,7 +11,6 @@ import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BoardComponent } from './board/board.component';
 import { ListComponent } from './list/list.component';
-import { ModalComponent } from './list/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +20,7 @@ import { ModalComponent } from './list/modal/modal.component';
     NavbarComponent,
     HomeComponent,
     BoardComponent,
-    ListComponent,
-    ModalComponent
+    ListComponent
   ],
   imports: [
     BrowserModule,
