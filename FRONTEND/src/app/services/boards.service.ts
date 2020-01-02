@@ -33,7 +33,6 @@ export class BoardsService {
         });
     }
 
-    //curl -d {\"lists\":[{\"list_id\":\"1\",\"rows\":[{\"row_id\":\"4\",\"row_name\":\"nazwaRow\"}]}]} -H "Content-Type: application/json" -X POST "http://localhost:8080/board/1/insertRow"
     addRow(board_id: string, list_id: string, row_id: string, row_name: string){
         let json = JSON.stringify({"lists":{"list_id":list_id,"rows":{"row_id":row_id,"row_name":row_name}}});
         console.log(json);
