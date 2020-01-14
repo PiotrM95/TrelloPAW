@@ -162,6 +162,18 @@ public class dbQuerys {
         rs.close();
     }
 
+    public static void moveList(int boardId,int listOrderOld,int listOrderNew) throws SQLException {
+        Initialize();
+
+        CallableStatement statement = connection.procedureCall("{ call MoveList(?,?,?) }");
+        statement.setInt("boardId", boardId);
+        statement.setInt("listOrderOld", listOrderOld);
+        statement.setInt("listOrderNew", listOrderNew);
+        ResultSet rs = connection.procedureExecute(statement);
+
+        rs.close();
+    }
+
     public static Details getDetails(int boardId, int listOrder, int rowOrder) throws SQLException {
         Initialize();
 //        CallableStatement statement = connection.procedureCall("{ call getBoard(?) }");
