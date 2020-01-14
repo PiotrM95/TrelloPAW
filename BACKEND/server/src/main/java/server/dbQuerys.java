@@ -149,6 +149,18 @@ public class dbQuerys {
         rs.close();
     }
 
+    public static void insertList(int boardId,int listOrder, String listName) throws SQLException {
+        Initialize();
+
+        CallableStatement statement = connection.procedureCall("{ call InsertList(?,?,?) }");
+        statement.setInt("boardId", boardId);
+        statement.setInt("listOrder", listOrder);
+        statement.setString("listName", listName);
+        ResultSet rs = connection.procedureExecute(statement);
+
+        rs.close();
+    }
+
     public static void moveRow(int boardId,int listOrder,int rowOrderOld, int rowOrderNew) throws SQLException {
         Initialize();
 

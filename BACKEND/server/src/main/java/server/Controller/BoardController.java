@@ -106,7 +106,6 @@ public class BoardController {
     }
 
     //Zmiana pozycji listy
-    //curl -d {\"lists\":[{\"list_id\":\"1\",\"rows\":[{\"row_id\":\"1\",\"row_name\":\"nazwaRow\"}]}]} -H "Content-Type: application/json" -X POST "http://localhost:8080/board/1/moveRow+3"
     @Post("/{number}/moveList+{newListOrder}")
     public HttpResponse moveList(@PathVariable Integer number,@PathVariable Integer newListOrder,@Body Board board) {
         try {
@@ -115,5 +114,18 @@ public class BoardController {
         } catch (SQLException e) {
             return HttpResponse.serverError();
         }
+    }
+
+    //Dodanie nowej listy
+    //curl -d {\"board_name\":\"value\"} -H "Content-Type: application/json" -X POST "http://localhost:8080/board/insert"
+    @Post("/{number}/insertList")
+    public HttpResponse insertList(@PathVariable Integer number, @Body Board board) {
+        try {
+            dbQuerys.insertList(number,board.getLists().get(0).getList_id(),board.getLists().get(0).getList_name());
+            return HttpResponse.ok();
+        } catch (SQLException e) {
+            return HttpResponse.serverError();
+        }
+
     }
 }
