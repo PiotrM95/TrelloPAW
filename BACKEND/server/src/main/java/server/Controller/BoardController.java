@@ -8,6 +8,7 @@ import server.ConverterJSON;
 import server.TestRecive.Person;
 import server.dbQuerys;
 import server.model.Board;
+import server.model.Comment;
 
 import java.sql.SQLException;
 
@@ -117,11 +118,21 @@ public class BoardController {
     }
 
     //Dodanie nowej listy
-    //curl -d {\"board_name\":\"value\"} -H "Content-Type: application/json" -X POST "http://localhost:8080/board/insert"
     @Post("/{number}/insertList")
     public HttpResponse insertList(@PathVariable Integer number, @Body Board board) {
         try {
             dbQuerys.insertList(number,board.getLists().get(0).getList_id(),board.getLists().get(0).getList_name());
+            return HttpResponse.ok();
+        } catch (SQLException e) {
+            return HttpResponse.serverError();
+        }
+    }
+
+    //Dodanie nowego komentarza
+    @Post("/{boardId}/{listOrder}+{rowOrder}/InsertComment")
+    public HttpResponse insertComment(@PathVariable Integer boardId, @PathVariable Integer listOrder,@PathVariable Integer rowOrder, @Body Comment comment) {
+        try {
+            dbQuerys.InsertComment(boardId,listOrder,rowOrder,comment.getComment_name());
             return HttpResponse.ok();
         } catch (SQLException e) {
             return HttpResponse.serverError();

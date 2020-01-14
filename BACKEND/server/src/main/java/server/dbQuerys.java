@@ -161,6 +161,19 @@ public class dbQuerys {
         rs.close();
     }
 
+    public static void InsertComment(int boardId,int listOrder,int rowOrder,String comment)throws SQLException{
+        Initialize();
+
+        CallableStatement statement = connection.procedureCall("{ call InsertComment(?,?,?,?) }");
+        statement.setInt("boardId", boardId);
+        statement.setInt("listOrder", listOrder);
+        statement.setInt("rowOrder", rowOrder);
+        statement.setString("comment", comment);
+        ResultSet rs = connection.procedureExecute(statement);
+
+        rs.close();
+    }
+
     public static void moveRow(int boardId,int listOrder,int rowOrderOld, int rowOrderNew) throws SQLException {
         Initialize();
 
