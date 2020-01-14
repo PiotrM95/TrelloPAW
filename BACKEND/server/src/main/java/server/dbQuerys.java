@@ -149,6 +149,56 @@ public class dbQuerys {
         rs.close();
     }
 
+    public static void insertList(int boardId,int listOrder, String listName) throws SQLException {
+        Initialize();
+
+        CallableStatement statement = connection.procedureCall("{ call InsertList(?,?,?) }");
+        statement.setInt("boardId", boardId);
+        statement.setInt("listOrder", listOrder);
+        statement.setString("listName", listName);
+        ResultSet rs = connection.procedureExecute(statement);
+
+        rs.close();
+    }
+
+    public static void InsertComment(int boardId,int listOrder,int rowOrder,String comment)throws SQLException{
+        Initialize();
+
+        CallableStatement statement = connection.procedureCall("{ call InsertComment(?,?,?,?) }");
+        statement.setInt("boardId", boardId);
+        statement.setInt("listOrder", listOrder);
+        statement.setInt("rowOrder", rowOrder);
+        statement.setString("comment", comment);
+        ResultSet rs = connection.procedureExecute(statement);
+
+        rs.close();
+    }
+
+    public static void moveRow(int boardId,int listOrder,int rowOrderOld, int rowOrderNew) throws SQLException {
+        Initialize();
+
+        CallableStatement statement = connection.procedureCall("{ call MoveRow(?,?,?,?) }");
+        statement.setInt("boardId", boardId);
+        statement.setInt("listOrder", listOrder);
+        statement.setInt("rowOrderOld", rowOrderOld);
+        statement.setInt("rowOrderNew", rowOrderNew);
+        ResultSet rs = connection.procedureExecute(statement);
+
+        rs.close();
+    }
+
+    public static void moveList(int boardId,int listOrderOld,int listOrderNew) throws SQLException {
+        Initialize();
+
+        CallableStatement statement = connection.procedureCall("{ call MoveList(?,?,?) }");
+        statement.setInt("boardId", boardId);
+        statement.setInt("listOrderOld", listOrderOld);
+        statement.setInt("listOrderNew", listOrderNew);
+        ResultSet rs = connection.procedureExecute(statement);
+
+        rs.close();
+    }
+
     public static Details getDetails(int boardId, int listOrder, int rowOrder) throws SQLException {
         Initialize();
 //        CallableStatement statement = connection.procedureCall("{ call getBoard(?) }");

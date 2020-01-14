@@ -1,0 +1,36 @@
+DROP PROCEDURE IF EXISTS InsertComment;
+DELIMITER $$
+CREATE PROCEDURE `InsertComment`(
+    IN boardId INT
+    ,IN listOrder INT
+    ,IN rowOrder INT
+	,IN commentName VARCHAR(300)
+)
+BEGIN
+	SET @IdRow :=	
+		(SELECT 
+			R.Id
+		FROM 
+			`Board` B
+			INNER JOIN `List` L ON L.IdBoard=B.Id
+			INNER JOIN `Row` R ON R.IdList=L.Id
+		WHERE 
+			B.Id=boardId
+			AND
+			L.`Order`=listOrder
+			AND
+			R.`Order`=rowOrder);
+	INSERT INTO `Comment` 
+    	(
+			IdRow
+			,`Order`
+			,`Comment`
+        ) 
+   	VALUES 
+    	(
+            (SELECT @IdRow)
+            ,(SELECT `Order` FROM (SELECT MAX(`Order`)+1 AS `Order` FROM Comment WHERE IdRow=(SELECT @IdRow))AS T)
+            ,commentName
+        );
+END$$
+DELIMITER ;

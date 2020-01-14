@@ -1,0 +1,41 @@
+DROP PROCEDURE IF EXISTS MoveList;
+DELIMITER $$
+CREATE PROCEDURE `MoveList`(
+    IN boardId INT,
+    IN listOrderOld INT,
+    IN listOrderNew INT
+)
+BEGIN
+    UPDATE
+        `List`
+    SET
+        `Order` = CASE
+        	WHEN listOrderNew>listOrderOld THEN
+            	CASE
+               	WHEN `Order`=listOrderOld 
+                    THEN listOrderNew
+                	ELSE `Order`-1
+                END
+            ELSE
+            	CASE
+               	WHEN `Order`=listOrderOld 
+                    THEN listOrderNew
+                	ELSE `Order`+1
+                END
+			END
+    WHERE
+    	Id IN
+        (
+            SELECT
+                L.Id
+            FROM
+                `Board` B 
+                INNER JOIN (SELECT Id,IdBoard FROM `List` 
+                            WHERE `Order` BETWEEN listOrderNew AND listOrderOld 
+                            OR 
+                            `Order` BETWEEN listOrderOld AND listOrderNew) L ON B.Id = L.IdBoard
+            WHERE
+				B.Id = boardId
+        );
+END$$
+DELIMITER ;

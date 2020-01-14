@@ -8,6 +8,7 @@ import server.ConverterJSON;
 import server.TestRecive.Person;
 import server.dbQuerys;
 import server.model.Board;
+import server.model.Comment;
 
 import java.sql.SQLException;
 
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 @Controller("/board")
 public class BoardController {
 
+    //zwraca liste tablic
     @Get()
     public HttpResponse<String> boardList() {
         try {
@@ -25,6 +27,7 @@ public class BoardController {
         return HttpResponse.serverError();
     }
 
+    //zwraca tablice
     @Get("/{number}")
     public HttpResponse<String> board(@PathVariable Integer number) {
         try {
@@ -65,6 +68,7 @@ public class BoardController {
 
     }
 
+    //Dodadaje nowa karte
     //curl -d {\"lists\":[{\"list_id\":\"1\",\"rows\":[{\"row_id\":\"4\",\"row_name\":\"nazwaRow\"}]}]} -H "Content-Type: application/json" -X POST "http://localhost:8080/board/1/insertRow"
     @Post("/{number}/insertRow")
     public HttpResponse insertRow(@PathVariable Integer number,@Body Board board) {
@@ -78,10 +82,58 @@ public class BoardController {
         }
     }
 
+
+    //Zwraca szczegóły
     @Get("/{boardId}/{listOrder}+{rowOrder}")
     public HttpResponse<String> details(@PathVariable Integer boardId, @PathVariable Integer listOrder, @PathVariable Integer rowOrder) {
         try {
             return HttpResponse.ok(ConverterJSON.detailsToJSON(dbQuerys.getDetails(boardId,listOrder,rowOrder)));//.header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+        } catch (SQLException e) {
+            return HttpResponse.serverError();
+        }
+
+    }
+
+    //Zmiana pozycji karty
+    //curl -d {\"lists\":[{\"list_id\":\"1\",\"rows\":[{\"row_id\":\"1\",\"row_name\":\"nazwaRow\"}]}]} -H "Content-Type: application/json" -X POST "http://localhost:8080/board/1/moveRow+3"
+    @Post("/{number}/moveRow+{newRowOrder}")
+    public HttpResponse moveRow(@PathVariable Integer number,@PathVariable Integer newRowOrder,@Body Board board) {
+        try {
+            dbQuerys.moveRow(number,board.getLists().get(0).getList_id(),board.getLists().get(0).getRows().get(0).getRow_id(),newRowOrder);
+            return HttpResponse.ok();
+        } catch (SQLException e) {
+            return HttpResponse.serverError();
+        }
+    }
+
+    //Zmiana pozycji listy
+    @Post("/{number}/moveList+{newListOrder}")
+    public HttpResponse moveList(@PathVariable Integer number,@PathVariable Integer newListOrder,@Body Board board) {
+        try {
+            dbQuerys.moveList(number,board.getLists().get(0).getList_id(),newListOrder);
+            return HttpResponse.ok();
+        } catch (SQLException e) {
+            return HttpResponse.serverError();
+        }
+    }
+
+    //Dodanie nowej listy
+    @Post("/{number}/insertList")
+    public HttpResponse insertList(@PathVariable Integer number, @Body Board board) {
+        try {
+            dbQuerys.insertList(number,board.getLists().get(0).getList_id(),board.getLists().get(0).getList_name());
+            return HttpResponse.ok();
+        } catch (SQLException e) {
+            return HttpResponse.serverError();
+        }
+    }
+
+    //Dodanie nowego komentarza
+    @Post("/{boardId}/{listOrder}+{rowOrder}/InsertComment")
+    public HttpResponse insertComment(@PathVariable Integer boardId, @PathVariable Integer listOrder,@PathVariable Integer rowOrder, @Body Comment comment) {
+        try {
+            dbQuerys.InsertComment(boardId,listOrder,rowOrder,comment.getComment_name());
+            return HttpResponse.ok();
         } catch (SQLException e) {
             return HttpResponse.serverError();
         }

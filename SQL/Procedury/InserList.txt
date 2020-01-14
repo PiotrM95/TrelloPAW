@@ -1,0 +1,22 @@
+DROP PROCEDURE IF EXISTS InsertList;
+DELIMITER $$
+CREATE PROCEDURE `InsertList`(
+    IN boardId INT,
+	IN listOrder INT,
+	IN listName VARCHAR(300)
+)
+BEGIN
+	INSERT INTO `List` 
+    	(
+        	IdBoard
+            ,`Order`
+            ,Name
+        ) 
+   	VALUES 
+    	(
+            boardId
+            ,listOrder
+            ,listName
+        );
+END$$
+DELIMITER ;
