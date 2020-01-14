@@ -15,6 +15,7 @@ import java.sql.SQLException;
 @Controller("/board")
 public class BoardController {
 
+    //zwraca liste tablic
     @Get()
     public HttpResponse<String> boardList() {
         try {
@@ -25,6 +26,7 @@ public class BoardController {
         return HttpResponse.serverError();
     }
 
+    //zwraca tablice
     @Get("/{number}")
     public HttpResponse<String> board(@PathVariable Integer number) {
         try {
@@ -65,6 +67,7 @@ public class BoardController {
 
     }
 
+    //Dodadaje nowa karte
     //curl -d {\"lists\":[{\"list_id\":\"1\",\"rows\":[{\"row_id\":\"4\",\"row_name\":\"nazwaRow\"}]}]} -H "Content-Type: application/json" -X POST "http://localhost:8080/board/1/insertRow"
     @Post("/{number}/insertRow")
     public HttpResponse insertRow(@PathVariable Integer number,@Body Board board) {
@@ -78,6 +81,8 @@ public class BoardController {
         }
     }
 
+
+    //Zwraca szczegóły
     @Get("/{boardId}/{listOrder}+{rowOrder}")
     public HttpResponse<String> details(@PathVariable Integer boardId, @PathVariable Integer listOrder, @PathVariable Integer rowOrder) {
         try {
@@ -87,4 +92,6 @@ public class BoardController {
         }
 
     }
+
+
 }
