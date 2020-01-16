@@ -21,6 +21,7 @@ export class BoardComponent implements OnInit {
   ngOnInit() {
     this.boardsService.getBoardById(this.b.board_id).subscribe(data => {
       this.boardsService.wholeBoard = data[0];
+      console.log(data[0]);
       this.wholeBoard = this.boardsService.wholeBoard;
       if (this.wholeBoard.lists[0].list_name == null) {
         this.wholeBoard.lists.pop();

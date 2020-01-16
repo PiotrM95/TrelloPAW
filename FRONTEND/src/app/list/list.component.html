@@ -3,15 +3,22 @@
     <div class="row">
         <h5>{{ list.list_name }} (list id: {{ list.list_id }})</h5>
     </div>
-    <div class="row" *ngFor="let row of rows" id="card" (mouseenter)="showDeleteRowButton(row.row_id, true)"
-        (mouseleave)="showDeleteRowButton(row.row_id, false)">
-        {{ row.row_name }}
-        <div class="dropdown pull-right" *ngIf="(deleteRowButton && row.row_id === selectedRow )" appDropdown>
-            <button class="dropdown-toggle"><span class="glyphicon glyphicon-edit"></span></button>
-            <ul class="dropdown-menu">
-                <li><a>Rename</a></li>
-                <li><a (click)="deleteRow(row.row_id)">Delete</a></li>
-            </ul>
+    <!--<div class="row" *ngFor="let row of rows" id="card" (mouseenter)="showDeleteRowButton(row.row_id, true)"
+        (mouseleave)="showDeleteRowButton(row.row_id, false)">-->
+    <div class="row" *ngFor="let row of rows" id="card">
+        <span (click)="showDeleteRowButton(row.row_id)">{{ row.row_name }}</span>
+        <div *ngIf="(deleteRowButton && row.row_id === selectedRow )">
+            <span>
+                {{ row.row_description }}
+            </span>
+
+            <div class="dropdown pull-right" appDropdown>
+                <button class="dropdown-toggle"><span class="glyphicon glyphicon-edit"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a>Rename Row</a></li>
+                    <li><a (click)="deleteRow(row.row_id)">Delete Row</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

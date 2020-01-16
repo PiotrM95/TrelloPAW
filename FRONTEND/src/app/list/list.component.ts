@@ -23,6 +23,7 @@ export class ListComponent implements OnInit {
   constructor(private boardsService: BoardsService) { }
 
   ngOnInit() {
+    console.log(this.list);
     this.rows = this.list.rows;
     this.showRowInput = false;
 
@@ -30,6 +31,12 @@ export class ListComponent implements OnInit {
       this.listExists = true;
     } else {
       this.listExists = false;
+    }
+    //row_description loading
+    let i = 1;
+    for (let row of this.rows) {
+      this.getRowDetails(i);
+      i++;
     }
   }
 
@@ -54,7 +61,7 @@ export class ListComponent implements OnInit {
   }
 
   showDeleteRowButton(row_id: number, value: boolean) {
-    this.deleteRowButton = value;
+    this.deleteRowButton = !this.deleteRowButton;
     this.selectedRow = row_id;
   }
 
@@ -66,6 +73,21 @@ export class ListComponent implements OnInit {
       }
       i++;
     }
+  }
+
+  getRowDetails(row_order: number) {
+    this.boardsService.getRowDetails(this.board_id, this.list.list_id, row_order).subscribe(data => {
+      let row = data["row"];
+      let rowname = row["row_name"];
+      let desc = row["row_description"];
+      let i = 0;
+      for (let row of this.rows) {
+        if (row.row_name == rowname) {
+          this.rows[i].row_description = desc;
+        }
+        i++;
+      }
+    }, error1 => console.log(error1));
   }
 
 }

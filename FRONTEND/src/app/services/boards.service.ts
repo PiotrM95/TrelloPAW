@@ -65,4 +65,8 @@ export class BoardsService {
          });
     }
 
+    getRowDetails(board_id: number, list_order: number, row_order: number){
+        return this.http.get('http://localhost:8080/board/' + board_id + "/" + list_order + "+" + row_order);
+    }
+
 }
