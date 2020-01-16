@@ -8,10 +8,13 @@
             <li class="list-group-item"><a (click)="goToBoard(board.board_id)">{{ board.board_name }}</a>
                 <div *ngIf="(selectedBoardForRename == board.board_id && showRenameInput === true)">
                     <input #boardRenameValue type="text" class="form-control" placeholder="New board name">
-                    <button type="submit" class="btn btn-primary my-1" (click)="renameBoard(board.board_id, boardRenameValue.value); boardRenameValue.value = null; showRenameInput = false">Rename</button>
-                    <button type="submit" class="btn btn-primary my-1" (click)="showRenameInput = false; selectedBoardForRename = -1">Close</button>
+                    <button type="submit" class="btn btn-primary my-1"
+                        (click)="renameBoard(board.board_id, boardRenameValue.value); boardRenameValue.value = null; showRenameInput = false">Rename</button>
+                    <button type="submit" class="btn btn-primary my-1"
+                        (click)="showRenameInput = false; selectedBoardForRename = -1">Close</button>
                 </div>
-                <div class="dropdown pull-right" appDropdown *ngIf="(selectedBoardForRename != board.board_id && showRenameInput === false)">
+                <div class="dropdown pull-right" appDropdown
+                    *ngIf="(selectedBoardForRename != board.board_id)">
                     <button class="dropdown-toggle"><span class="glyphicon glyphicon-edit">Edit</span></button>
                     <ul class="dropdown-menu">
                         <li><a (click)="selectBoardForRename(board.board_id)">Rename</a></li>
