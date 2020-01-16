@@ -44,4 +44,25 @@ export class BoardsService {
          });
     }
 
+    addList(board_id: string, list_order: number, list_name: string){
+        let json = JSON.stringify({"board_id":board_id,"list_name":list_name});
+        console.log(json);
+         return this.http.post('http://localhost:8080/board/' + board_id + '/insertList', json, {
+             headers: new HttpHeaders({
+                 'Content-Type': 'application/json',
+                 'Accept': 'application/json'
+             })
+         });
+    }
+
+    updateBoardName(board_id: string, board_name: string){
+        let json = JSON.stringify({"board_name":board_name});
+         return this.http.post('http://localhost:8080/board/' + board_id + '/updateName', json, {
+             headers: new HttpHeaders({
+                 'Content-Type': 'application/json',
+                 'Accept': 'application/json'
+             })
+         });
+    }
+
 }

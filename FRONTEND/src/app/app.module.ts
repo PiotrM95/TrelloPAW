@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BoardComponent } from './board/board.component';
 import { ListComponent } from './list/list.component';
+import { DropdownDirective } from './services/dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ListComponent } from './list/list.component';
     NavbarComponent,
     HomeComponent,
     BoardComponent,
-    ListComponent
+    ListComponent,
+    DropdownDirective
   ],
   imports: [
     BrowserModule,

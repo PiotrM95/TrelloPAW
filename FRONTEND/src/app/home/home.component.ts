@@ -11,7 +11,8 @@ import { BoardsService } from '../services/boards.service';
 export class HomeComponent implements OnInit {
   loadedFeature = 'show-boards';
   selectedBoard: Board;
-
+  selectedBoardForRename = -1;
+  showRenameInput = false;
   boards: Board[] = [];
 
   constructor(private boardsService: BoardsService) { }
@@ -39,16 +40,6 @@ export class HomeComponent implements OnInit {
     }
     return maxId;
   }
-
-  // getAmountOfLists(board_id:number){
-  //   let amount = 0;
-  //   this.boardsService.getBoardById(board_id).subscribe(data => {
-  //     console.log(data[0]);
-  //     console.log('chuj');
-  //     this.boardsService.wholeBoard = data[0];
-  //     amount = this.boardsService.wholeBoard.lists.length;
-  //   }, error1 => console.log(error1));
-  // }
 
   addNewBoard(boardName: string) {
     this.loadedFeature = 'show-boards';
@@ -80,4 +71,31 @@ export class HomeComponent implements OnInit {
   setBoards(boards: Board[]) {
     this.boards = boards;
   }
+
+  renameBoard(board_id: number, board_name: string) {
+    this.boardsService.updateBoardName(board_id.toString(), board_name.toString()).subscribe(data => {
+      console.log(data);
+    });
+    for (let board of this.boards) {
+      if (board_id === board.getBoardId()) {
+        board.board_name = board_name;
+      }
+    }
+  }
+
+  selectBoardForRename(board_id: number) {
+    this.selectedBoardForRename = board_id;
+    this.showRenameInput = true;
+  }
+
+  deleteBoard(board_id: number) {
+    let i = 0;
+    for (let board of this.boards) {
+      if (board_id === board.getBoardId()) {
+        this.boards.splice(i, 1);
+      }
+      i++;
+    }
+  }
+
 }
