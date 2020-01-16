@@ -1,8 +1,8 @@
 <!-- wyświetlanie nazwy i id boarda oraz zawartosci list(list component) -->
-<h1>{{ b.board_name }} (board id: {{ b.board_id }})</h1>
+<h1>{{ b.board_name }} <!--(board id: {{ b.board_id }})--></h1>
 <div class="container">
     <div class="row">
-        <div class="col-md-2" style="background-color:lightblue;" *ngFor="let list of wholeBoard.lists">
+        <div class="col-md-2" style="background-color:lightblue; border-radius: 10px;" *ngFor="let list of wholeBoard.lists">
             <app-list [list]=list [board_id]=b.board_id></app-list>
         </div>
     </div>

@@ -1,12 +1,12 @@
 <!-- jeśli jest jakaś lista to ją wyświetla -->
 <div *ngIf="listExists == true">
-    <div class="row">
-        <h5>{{ list.list_name }} (list id: {{ list.list_id }})</h5>
+    <div class="row" style="margin-left: 3px;">
+        <h3><strong>{{ list.list_name }} <!--(list id: {{ list.list_id }})--></strong></h3>
     </div>
     <!--<div class="row" *ngFor="let row of rows" id="card" (mouseenter)="showDeleteRowButton(row.row_id, true)"
         (mouseleave)="showDeleteRowButton(row.row_id, false)">-->
     <div class="row" *ngFor="let row of rows" id="card">
-        <span (click)="showDeleteRowButton(row.row_id)">{{ row.row_name }}</span>
+        <span (click)="showDeleteRowButton(row.row_id)"><strong>{{ row.row_name }}</strong></span>
         <div *ngIf="(deleteRowButton && row.row_id === selectedRow )">
             <span>
                 {{ row.row_description }}
